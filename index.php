@@ -45,6 +45,10 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
 	    ),
 	),
 ));
+$app->get("{_locale}/card", function() use($app){
+	return $app["twig"]->render('card.html.twig');
+})
+->bind('card');
 
 $app->get('{_locale}/about', function() use($app){
     return $app["twig"]->render('about.html.twig');

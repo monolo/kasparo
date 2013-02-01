@@ -1,4 +1,4 @@
 <li{% if active == "home" %} class="active"{% endif %}><a href="#home">Inicio</a></li>
-<li{% if active == "card" %} class="active"{% endif %}><a href="#card">Carta</a></li>
+<li{% if active == "card" %} class="active"{% endif %}><a href="{{path('card')}}">Carta</a></li>
 <li{% if active == "galery" %} class="active"{% endif %}><a href="#galery">Galería</a></li>
-<li{% if active == "about" %} class="active"{% endif %}><a href="#about">Sobre Nosotros</a></li>
+<li{% if active == "about" %} class="active"{% endif %}><a href="{{path('about')}}">Sobre Nosotros</a></li>
