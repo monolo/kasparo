@@ -1,0 +1,61 @@
+{% extends 'layoutAdmin.html.twig' %}
+{% set nav = "images" %}
+{% block section %}
+	<div class="row">
+		<div class="span3 bs-docs-sidebar">
+			<ul class="nav nav-list bs-docs-sidenav affix-top">
+				<li><a href="{{path('admin_images')}}"><i class="icon-chevron-right"></i>Todos</a></li>
+				<li><a href="{{path('admin_images_new')}}"><i class="icon-chevron-right"></i>Crear nuevo</a></li>
+				<li class="active"><a href="#"><i class="icon-chevron-right"></i>Editando {{entity.name}}</a></li>
+        	</ul>
+		</div>
+		<div class="span9">
+			<form method="post" enctype="multipart/form-data">
+				<fieldset>
+					<legend>Editar Imagen</legend>
+					<label>Nombre:</label>
+					<input type="text" value="{{entity.name}}" required="required" name="name"></br>
+					<input type="file" name="file">
+					<label>Descripción:</label>
+					<input type="text" value="{{entity.description}}" name="description">
+					<span class="help-block">Selecciona si quieres que salga en algún slider:</span>
+					<label class="checkbox">
+						<input type="checkbox" name="slider1"{% if entity.slider1 == 1 %} checked{% endif %}> Slider principal
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" name="slider2"{% if entity.slider2 == 1 %} checked{% endif %}> Slider secundario
+					</label>
+					<button type="submit" class="btn btn-success">Guardar</button>
+					<a class="btn btn-danger" data-toggle="modal" href="#modal_delete_force" data-confirm="{{path('admin_images_delete', {'id': entity.id})}}"><i class="icon-trash"></i>Borrar</a>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+{% block modal %}
+<div class="modal hide fade" id="modal_delete_force">
+    <div class="modal-body">
+        <p>Seguro que quieres borrarlo?</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+        <a href="#" class="btn btn-primary"  onclick="javascript: delete_force(); return false;">Aceptar</a>
+    </div>
+</div>
+<script src="/js/bootstrap-modal.js"></script>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+var href = null;
+jQuery(document).ready(function(){
+    $('.btn-danger').click(function(){
+        href = $(this).attr('data-confirm');
+    });
+
+});
+function delete_force(){
+    window.location.href = href;;
+}
+</script>
+{% endblock %}

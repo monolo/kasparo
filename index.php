@@ -45,6 +45,118 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
 	    ),
 	),
 ));
+
+//controllers
+$app->get('/admin', function() use($app) {
+    return $app['twig']->render('adminIndex.html.twig');
+})
+->bind('admin');
+
+$app->get('/admin/images', function() use($app) {
+    $entities = $app['db']->fetchAll('SELECT * FROM images');
+    return $app['twig']->render('adminImages.html.twig', array("entities" => $entities));
+})
+->bind('admin_images');
+
+$app->get('/admin/images/show/{id}', function($id) use($app) {
+    $entity = $app['db']->fetchAssoc('SELECT * FROM images WHERE id = '.$id);
+    return $app['twig']->render('adminImagesShow.html.twig', array("entity" => $entity));
+})
+->bind('admin_images_show');
+
+$app->match('/admin/images/new', function(Request $request) use($app) {
+    if($request->getMethod() == "POST"){
+        if ($_FILES["file"]["error"] > 0)
+        {
+            echo "Ha ocurrido un error con la imagen subida o no ha subido una imagen, vuelve a intentarlo";
+        }
+        else
+        {
+            if($name = $request->get("name")){
+                $extension = end(explode(".", $_FILES["file"]["name"]));
+                $date = new \DateTime();
+                $name2 = md5($date->format("Y-m-d H:i:s")).".".$extension;
+                move_uploaded_file($_FILES["file"]["tmp_name"], "images/" . $name2);
+                $sql = "Insert Into images (id, name, path";
+                $sql .=($request->get("slider1")) ? ", slider1" : "";
+                $sql .=($request->get("slider2")) ? ", slider2" : "";
+                $sql .=($request->get("description") != "") ? ", description" : "";
+                $sql .=") Values (NULL, '".$name."', '/images/".$name2."'";
+                $sql .=($request->get("slider1")) ? ", '1'" : "";
+                $sql .=($request->get("slider2")) ? ", '1'" : "";
+                $sql .=($request->get("description") != "") ? ", '".$request->get("description")."'" : "";
+                $sql .=")";
+                $app["db"]->executeUpdate($sql);
+                return $app->redirect("/admin/images");
+            }
+        }
+    }
+    return $app['twig']->render('adminImagesNew.html.twig');
+})
+->bind('admin_images_new');
+
+$app->match('/admin/images/edit/{id}', function($id, Request $request) use($app) {
+    $entity = $app['db']->fetchAssoc('SELECT * FROM images WHERE id = '.$id);
+    if($request->getMethod() == "POST"){
+        $description = ($request->get("description") != "") ? "'".$request->get("description")."'" : "NULL";
+        if($_FILES["file"]["size"] > 0){
+            if ($_FILES["file"]["error"] > 0)
+            {
+                echo "Ha ocurrido un error con la imagen subida, vuelve a intentarlo";
+            }
+            else
+            {
+                if($name = $request->get("name")){
+                    $unlink = end(explode("/", $entity["path"]));
+                    unlink("images/".$unlink);
+                    $extension = end(explode(".", $_FILES["file"]["name"]));
+                    $date = new \DateTime();
+                    $name2 = md5($date->format("Y-m-d H:i:s")).".".$extension;
+                    move_uploaded_file($_FILES["file"]["tmp_name"], "images/" . $name2);
+                    $sql = "UPDATE images SET name='".$name."', path='/images/".$name2."', slider1=";
+                    $sql .=($request->get("slider1")) ? "true" : "false";
+                    $sql .=", slider2=";
+                    $sql .=($request->get("slider2")) ? "true" : "false";
+                    $sql .=", description=";
+                    $sql .=$description;
+                    $sql .=" WHERE id = ".$id;
+                    $app["db"]->executeUpdate($sql);
+                    return $app->redirect("/admin/images");
+                }
+            }
+        }
+        else{
+            if($name = $request->get("name")){
+                $sql = "UPDATE images SET name='".$name."', slider1=";
+                $sql .=($request->get("slider1")) ? "true" : "false";
+                $sql .=", slider2=";
+                $sql .=($request->get("slider2")) ? "true" : "false";
+                $sql .=", description=";
+                $sql .=$description;
+                $sql .=" WHERE id = ".$id;
+                $app["db"]->executeUpdate($sql);
+                return $app->redirect("/admin/images");
+            }
+        }
+    }
+    return $app['twig']->render('adminImagesEdit.html.twig', array("entity" => $entity));
+})
+->bind('admin_images_edit');
+
+$app->get('/admin/images/delete/{id}', function($id) use($app){
+    $entity = $app['db']->fetchAssoc('SELECT * FROM images WHERE id = '.$id);
+    $unlink = end(explode("/", $entity["path"]));
+    unlink("images/".$unlink);
+    $sql = "DELETE FROM images WHERE id=".$id;
+    $app["db"]->executeUpdate($sql);
+    return $app->redirect("/admin/images");
+})
+->bind('admin_images_delete');
+$app->get("/", function() use($app){
+    return $app['twig']->render('landing.html.twig');
+})
+->bind("home");
+
 $app->get("{_locale}/card", function() use($app){
 	return $app["twig"]->render('card.html.twig');
 })
