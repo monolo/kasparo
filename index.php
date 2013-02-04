@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/config.php';
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
@@ -76,14 +77,16 @@ $app->match('/admin/images/new', function(Request $request) use($app) {
                 $extension = end(explode(".", $_FILES["file"]["name"]));
                 $date = new \DateTime();
                 $name2 = md5($date->format("Y-m-d H:i:s")).".".$extension;
-                move_uploaded_file($_FILES["file"]["tmp_name"], "images/" . $name2);
+                move_uploaded_file($_FILES["file"]["tmp_name"], "public/images/" . $name2);
                 $sql = "Insert Into images (id, name, path";
                 $sql .=($request->get("slider1")) ? ", slider1" : "";
                 $sql .=($request->get("slider2")) ? ", slider2" : "";
+                $sql .=($request->get("slider3")) ? ", slider3" : "";
                 $sql .=($request->get("description") != "") ? ", description" : "";
-                $sql .=") Values (NULL, '".$name."', '/images/".$name2."'";
+                $sql .=") Values (NULL, '".$name."', '/public/images/".$name2."'";
                 $sql .=($request->get("slider1")) ? ", '1'" : "";
                 $sql .=($request->get("slider2")) ? ", '1'" : "";
+                $sql .=($request->get("slider3")) ? ", '1'" : "";
                 $sql .=($request->get("description") != "") ? ", '".$request->get("description")."'" : "";
                 $sql .=")";
                 $app["db"]->executeUpdate($sql);
@@ -112,11 +115,13 @@ $app->match('/admin/images/edit/{id}', function($id, Request $request) use($app)
                     $extension = end(explode(".", $_FILES["file"]["name"]));
                     $date = new \DateTime();
                     $name2 = md5($date->format("Y-m-d H:i:s")).".".$extension;
-                    move_uploaded_file($_FILES["file"]["tmp_name"], "images/" . $name2);
-                    $sql = "UPDATE images SET name='".$name."', path='/images/".$name2."', slider1=";
+                    move_uploaded_file($_FILES["file"]["tmp_name"], "public/images/" . $name2);
+                    $sql = "UPDATE images SET name='".$name."', path='/public/images/".$name2."', slider1=";
                     $sql .=($request->get("slider1")) ? "true" : "false";
                     $sql .=", slider2=";
                     $sql .=($request->get("slider2")) ? "true" : "false";
+                    $sql .=", slider3=";
+                    $sql .=($request->get("slider3")) ? "true" : "false";
                     $sql .=", description=";
                     $sql .=$description;
                     $sql .=" WHERE id = ".$id;
@@ -131,6 +136,8 @@ $app->match('/admin/images/edit/{id}', function($id, Request $request) use($app)
                 $sql .=($request->get("slider1")) ? "true" : "false";
                 $sql .=", slider2=";
                 $sql .=($request->get("slider2")) ? "true" : "false";
+                $sql .=", slider3=";
+                $sql .=($request->get("slider3")) ? "true" : "false";
                 $sql .=", description=";
                 $sql .=$description;
                 $sql .=" WHERE id = ".$id;
@@ -146,7 +153,7 @@ $app->match('/admin/images/edit/{id}', function($id, Request $request) use($app)
 $app->get('/admin/images/delete/{id}', function($id) use($app){
     $entity = $app['db']->fetchAssoc('SELECT * FROM images WHERE id = '.$id);
     $unlink = end(explode("/", $entity["path"]));
-    unlink("images/".$unlink);
+    unlink("public/images/".$unlink);
     $sql = "DELETE FROM images WHERE id=".$id;
     $app["db"]->executeUpdate($sql);
     return $app->redirect("/admin/images");
