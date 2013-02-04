@@ -1,0 +1,37 @@
+{% extends 'layoutAdmin.html.twig' %}
+{% set nav = "images" %}
+{% block section %}
+	<div class="row">
+		<div class="span3 bs-docs-sidebar">
+			<ul class="nav nav-list bs-docs-sidenav affix-top">
+				<li><a href="{{path('admin_images')}}"><i class="icon-chevron-right"></i>Todos</a></li>
+				<li class="active"><a href="#"><i class="icon-chevron-right"></i>Viendo {{ entity.name }}</a></li>
+				<li><a href="{{path('admin_images_new')}}"><i class="icon-chevron-right"></i>Crear nuevo</a></li>
+        	</ul>
+		</div>
+		<div class="span9">
+			<table class="table table-bordered">
+				<tr>
+					<th>Nombre</th>
+					<td>{{entity.name}}</td>
+				</tr>
+				<tr>
+					<th>Imagen</th>
+					<td><img src="{{entity.path}}"></td>
+				</tr>
+				<tr>
+					<th>Descripción</th>
+					<td>{% if entity.description is not null %}{{entity.description}}{% else %}No hay descripción{% endif %}</td>
+				</tr>
+				<tr>
+					<th>Slider principal</th>
+					<td>{% if entity.slider1 %}Si{% else %}No{% endif %}</td>
+				</tr>
+				<tr>
+					<th>Slider secundario</th>
+					<td>{% if entity.slider2 %}Si{% else %}No{% endif %}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+{% endblock %}

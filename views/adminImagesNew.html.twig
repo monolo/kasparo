@@ -1,0 +1,33 @@
+
+{% extends 'layoutAdmin.html.twig' %}
+{% set nav = "images" %}
+{% block section %}
+	<div class="row">
+		<div class="span3 bs-docs-sidebar">
+			<ul class="nav nav-list bs-docs-sidenav affix-top">
+				<li><a href="{{path('admin_images')}}"><i class="icon-chevron-right"></i>Todos</a></li>
+				<li class="active"><a href="{{path('admin_images_new')}}"><i class="icon-chevron-right"></i>Crear nuevo</a></li>
+        	</ul>
+		</div>
+		<div class="span9">
+			<form method="post" enctype="multipart/form-data">
+				<fieldset>
+					<legend>Nueva Imagen</legend>
+					<label>Nombre:</label>
+					<input type="text" placeholder="Introduce el nombre..." required="required" name="name"></br>
+					<input type="file" required="required" name="file">
+					<label>Descripción:</label>
+					<input type="text" name="description">
+					<span class="help-block">Selecciona si quieres que salga en algún slider:</span>
+					<label class="checkbox">
+						<input type="checkbox" name="slider1"> Slider principal
+					</label>
+					<label class="checkbox">
+						<input type="checkbox" name="slider2"> Slider secundario
+					</label>
+					<button type="submit" class="btn btn-success">Enviar</button>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+{% endblock %}

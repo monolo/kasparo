@@ -1,0 +1,61 @@
+{% extends 'layoutAdmin.html.twig' %}
+{% set nav = "images" %}
+{% block section %}
+	<div class="row">
+		<div class="span3 bs-docs-sidebar">
+			<ul class="nav nav-list bs-docs-sidenav affix-top">
+				<li class="active"><a href="{{path('admin_images')}}"><i class="icon-chevron-right"></i>Todos</a></li>
+				<li class=""><a href="{{path('admin_images_new')}}"><i class="icon-chevron-right"></i>Crear nuevo</a></li>
+        	</ul>
+		</div>
+		<div class="span9">
+			<table class="table table-bordered">
+				<tr>
+					<th>Nombre</th>
+					<th>Imagen</th>
+					<th>Acciones</th>
+				</tr>
+				{% for entity in entities %}
+				<tr>
+					<td>{{entity.name}}</td>
+					<td><img src="{{entity.path}}"></img></td>
+					<td>
+						<div class="btn-group" style="margin: 9px 0 5px;">
+          					<a class="btn btn-primary" href="{{path('admin_images_show', {'id':entity.id})}}"><i class="icon-eye-open"></i>Ver</a>
+          					<a class="btn btn-success" href="{{path('admin_images_edit', {'id': entity.id})}}"><i class="icon-pencil"></i>Editar</a>
+          					<a class="btn btn-danger" data-toggle="modal" href="#modal_delete_force" data-confirm="{{path('admin_images_delete', {'id': entity.id})}}"><i class="icon-trash"></i>Borrar</a>
+        				</div>
+    				</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+{% endblock %}
+{% block modal %}
+<div class="modal hide fade" id="modal_delete_force">
+    <div class="modal-body">
+        <p>Seguro que quieres borrarlo?</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+        <a href="#" class="btn btn-primary"  onclick="javascript: delete_force(); return false;">Aceptar</a>
+    </div>
+</div>
+<script src="/js/bootstrap-modal.js"></script>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+var href = null;
+jQuery(document).ready(function(){
+    $('.btn-danger').click(function(){
+        href = $(this).attr('data-confirm');
+    });
+
+});
+function delete_force(){
+    window.location.href = href;;
+}
+</script>
+{% endblock %}
