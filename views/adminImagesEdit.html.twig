@@ -25,6 +25,9 @@
 					<label class="checkbox">
 						<input type="checkbox" name="slider2"{% if entity.slider2 == 1 %} checked{% endif %}> Slider secundario
 					</label>
+					<label class="checkbox">
+						<input type="checkbox" name="slider3"{% if entity.slider3 == 1 %} checked{% endif %}> Prensa
+					</label>
 					<button type="submit" class="btn btn-success">Guardar</button>
 					<a class="btn btn-danger" data-toggle="modal" href="#modal_delete_force" data-confirm="{{path('admin_images_delete', {'id': entity.id})}}"><i class="icon-trash"></i>Borrar</a>
 				</fieldset>
