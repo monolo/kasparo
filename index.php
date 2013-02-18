@@ -5,6 +5,7 @@ require_once __DIR__.'/config.php';
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 $app = new Silex\Application();
 $app['debug'] = true;
 
@@ -162,7 +163,17 @@ $app->get('/admin/images/delete/{id}', function($id) use($app){
 $app->get("/", function() use($app){
     return $app['twig']->render('landing.html.twig');
 })
+->bind("landing");
+
+$app->get("/{_locale}/home", function() use($app){
+    return $app['twig']->render('index.html.twig');
+})
 ->bind("home");
+
+$app->get("/{_locale}/gallery", function() use($app){
+    return $app['twig']->render('gallery.html.twig');
+})
+->bind("gallery");
 
 $app->get("{_locale}/card", function() use($app){
 	return $app["twig"]->render('card.html.twig');
