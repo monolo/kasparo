@@ -171,7 +171,8 @@ $app->get("/{_locale}/home", function() use($app){
 ->bind("home");
 
 $app->get("/{_locale}/gallery", function() use($app){
-    return $app['twig']->render('gallery.html.twig');
+    $entities = $app['db']->fetchAll('SELECT * FROM images WHERE slider1 = 1');
+    return $app['twig']->render('gallery.html.twig', array("entities" => $entities));
 })
 ->bind("gallery");
 
