@@ -165,6 +165,12 @@ $app->get("/", function() use($app){
 })
 ->bind("landing");
 
+$app->get("/{_locale}/press", function() use($app){
+    $entities = $app['db']->fetchAll('SELECT * FROM images WHERE slider3 = 1');
+    return $app['twig']->render('press.html.twig',array('entities'=>$entities));
+})
+    ->bind("press");
+
 $app->get("/{_locale}/home", function() use($app){
     return $app['twig']->render('index.html.twig');
 })

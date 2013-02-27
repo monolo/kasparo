@@ -148,7 +148,7 @@ body {
   overflow: hidden; /* Vertically center images part 2: clear their floats. */
 }
 .featurette-image {
-  margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+  /* margin-top: -120px;  Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
 }
 
 /* Give some space on the sides of the floated elements so text doesn't run right into it. */
@@ -252,3 +252,22 @@ body {
 }
 
 .span10 .featurette-heading { font-family: 'Sanchez';}
+
+/* Gradient transparent - color - transparent */
+
+hr.soften {
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+}
+
+/* Double-color dashed line */
+    
+hr.dashed {
+    border: 0;
+    border-bottom: 1px dashed #ccc;
+    background: #999;
+}
