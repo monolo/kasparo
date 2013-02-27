@@ -16,9 +16,9 @@
 	$(document).ready(function(){
 		$('#pg').jphotogrid({
 			baseCSS: {
-				width: '175px',
-				height: '117px',
-				padding: '0px'
+				width: '275px',
+				height: '167px',
+				padding: '50px',
 			},
 			selectedCSS: {
 				top: '50px',
@@ -34,8 +34,8 @@
 {% endblock %}
 {% block extra %}
 <style type="text/css">
-#pg { position: relative; height: 585px; background: #000; }
-#pg li { position: relative; list-style: none; width: 175px; height: 117px; overflow: hidden; float: left; z-index: 2; opacity: .3; }
+#pg { position: relative; height: 585px;  }
+#pg li { position: relative; list-style: none; width: 275px; height: 117px; overflow: hidden; float: left; z-index: 2; opacity: .3; }
 #pg li.active { opacity: 1; }
 #pg li.selected { opacity: 1; z-index: 99; -moz-box-shadow: 0px 0px 10px #fff; -webkit-box-shadow: 0px 0px 10px #fff; }
 #pg li img { display: block; width: 100%; }
