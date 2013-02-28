@@ -1,5 +1,12 @@
 {% extends "layout.html.twig" %}
 {% set active = "about" %}
+{% block extra %}
+    <style>
+        p{
+            text-align: justify;
+        }
+    </style>
+{% endblock %}
 {% block panel %}
 <div class="featurette">
 	<img class="featurette-image pull-right" src="/public/render/tranquilidad.jpg" style="margin-top: -100px;">
