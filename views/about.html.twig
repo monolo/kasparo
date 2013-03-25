@@ -10,28 +10,31 @@
 {% block panel %}
 <div class="featurette">
 	<img class="featurette-image pull-right" src="/public/render/tranquilidad.jpg" style="margin-top: -100px;">
-	<h2 class="featurette-heading">Historia<span class="muted">, la plaza.</span></h2>
+	<h2 class="featurette-heading">{% trans %}history{% endtrans %}<span class="muted">, {% trans %}square{% endtrans %}.</span></h2>
 	<p class="lead">
-		El Kasparo se encuentra en el centro de Barcelona en una plaza porticada, verde con jardín y parque infantil y con el único monumento de Barcelona a Antonio Machín; ciudad donde vivió durante años y a escasos metros de aquí.
+		{% trans %}about_first_paragraph{% endtrans %}
 	</p>
 	<p class="lead">
-		Es un tradicional y conocido punto de reunión de gente cosmopolita que busca tranquilidad y la luz del sol, en una zona peatonal, libre del tráfico de coches y de la frenética actividad comercial.
+		{% trans %}about_second_paragraph{% endtrans %}
 	</p>
 </div>
 <hr class="featurette-divider">
 <div class="featurette">
 	<img class="featurette-image pull-left" src="/public/render/tapas.jpg">
-	<h2 class="featurette-heading">Kasparo<span class="muted">, el bar.</span></h2>
+	<h2 class="featurette-heading">Kasparo<span class="muted">, {% trans %}bar{% endtrans %}.</span></h2>
 	<p class="lead">
-		Se ofrece un buen café, una amplia gama de tés y infusiones naturales, una selección  de desayunos sanos, una gran variedad de bocadillos creativos, una selección de repostería casera,  cervezas artesanas, vinos de producción limitada, cocteles granizados, pero sobre todo una selección de tapas y platos del día  con el énfasis simplemente en productos frescos y de temporada.
+		{% trans %}about_third_paragraph{% endtrans %}
 	</p>
 </div>
 <hr class="featurette-divider">
 <div class="featurette">
 	<img class="featurette-image pull-right" src="/public/render/bar.jpg">
-	<h2 class="featurette-heading">Kasparo<span class="muted">, las tapas.</span></h2>
+	<h2 class="featurette-heading">Kasparo<span class="muted">, {% trans %}caps{% endtrans %}.</span></h2>
 	<p class="lead">
-		Con una línea  mediterránea  y internacional, se sirve una variedad de tapas fijas junto con los platos del día que varían cada día, según la temporada, como las ensaladas, las verduras, los patés vegetales, la pasta original italiana, las carnes,  las sopas  y los quiches elaborados de huevos de corral.
+		{% trans %}about_fourth_paragraph{% endtrans %}
+	</p>
+	<p class="lead">
+		{% trans %}about_fifth_paragraph{% endtrans %}
 	</p>
 </div>
 {% endblock %}
