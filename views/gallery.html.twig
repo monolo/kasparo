@@ -9,6 +9,7 @@
 		</li>
 	{% endfor %}
 </ul>
+<div style="clear:both"></div>
 {% endblock %}
 {% block extraJavascript %}
 <script type="text/javascript" src="/public/js/jphotogrid.min.js"></script>
@@ -17,7 +18,7 @@
 		$('#pg').jphotogrid({
 			baseCSS: {
 				width: '31%',
-				height: '160px',
+				height: '180px',
 				padding: '0px',
 
 			},
@@ -37,10 +38,12 @@
 {% block extra %}
 <style type="text/css">
 #pg { position: relative; min-height: 885px; margin-left: 0px; padding-left: 0px;  width:100% }
-#pg li { position: relative; list-style: none; width: 31%; margin-left: 3%; height: 160px; overflow: hidden; float: left; z-index: 2; opacity: .9; margin:10px; background-color: white; }
+#pg li { position: relative; list-style: none; width: 31%; margin-left: 3%; height: 180px; overflow: hidden; float: left; z-index: 2; opacity: .9; margin:10px; background-color: white; }
+#pg li { opacity: 1; box-shadow: 0px 0px 10px #888; }
 #pg li.active { opacity: 1; box-shadow: 0px 0px 5px #333; background-color: #333; }
+
 #pg li.active img { box-shadow: 0px 0px 10px #999;  }
-#pg li.selected { opacity: 1; z-index: 99; -moz-box-shadow: 0px 0px 10px #fff; -webkit-box-shadow: 0px 0px 10px #fff; }
+#pg li.selected { opacity: 1; z-index: 99; -moz-box-shadow: 0px 0px 10px #fff; -webkit-box-shadow: 0px 0px 10px #fff; margin-top: -10px; margin-left: -10px; }
 #pg li img { display: block; width: 100%;  }
 #pg li p { color: #333; margin: 10px 0; font-size: 18px; margin:5px }
 </style>
