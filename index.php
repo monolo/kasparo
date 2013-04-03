@@ -36,7 +36,7 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
         'host' => $dbhost
     ),
 ));
-$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+/*$app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
 	    'admin' => array(
 	        'pattern' => '^/admin',
@@ -46,7 +46,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
 	        ),
 	    ),
 	),
-));
+));*/
 
 //controllers
 $app->get('/admin', function() use($app) {
