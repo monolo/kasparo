@@ -1,14 +1,30 @@
 {% extends 'layout.html.twig' %}
 {% set active = "home" %}
-{% block extra %}
-<!--	    <link href="/public/css/slider.css" rel="stylesheet">-->
-
+{% block extraJavascript %}
+    <script src="/public/js/jquery.blueberry.js"></script>
+    <script>
+        $(window).load(function () {
+            $('.blueberry').blueberry();
+        });
+    </script>
 {% endblock %}
-{% block panel %}
-<div class="row">
-	<h2 class="featurette-heading">En construcción...</h2>
-	<div class="span5">
-	<p>Actualmente estamos trabajando para actualizar la página.<br> Disculpe las molestias.</p>
-	</div>
-</div>
+{% block extra %}
+    <link rel="stylesheet" href="/public/css/blueberry.css">
+    <style>
+        ul.slides{
+            margin: 0px;
+        }
+        ul.pager li a{
+            border: none;
+        }
+    </style>
+{% endblock %}
+{% block slider %}
+    <div class="blueberry">
+        <ul class="slides">
+            {% for entity in entities %}
+                <li><img src="{{ entity.path }}" /></li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Kasparo.es</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,6 @@
     <![endif]-->
 
 
-
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/public/ico/apple-touch-icon-114-precomposed.png">
@@ -28,58 +27,67 @@
     <link href='http://fonts.googleapis.com/css?family=Sanchez' rel='stylesheet' type='text/css'>
     {% block extra %}
     {% endblock %}
-  </head>
-  <body>
-    <!-- NAVBAR
-    ================================================== -->
-    <div class="navbar-wrapper">
+</head>
+<body>
+<!-- NAVBAR
+================================================== -->
+<div class="navbar-wrapper">
     <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
     <div class="container">
-      <div class="navbar">
-        <div class="navbar-inner">
-          <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand brand-caption" href="{{ path('landing') }}">
-            <h3>Kasparo</h3>
-            <p class="lead">BAR · RESTAURANT · TERRASSA</p>
-          </a>
-          <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
-          <div class="nav-collapse collapse">
-            <ul class="nav pull-right">
-              {% include 'menu.html.twig' %}
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div><!-- /.navbar-inner -->
-      </div><!-- /.navbar -->
+        <div class="navbar">
+            <div class="navbar-inner">
+                <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand brand-caption" href="{{ path('landing') }}">
+                    <h3>Kasparo</h3>
 
-      </div> <!-- /.container -->
-    </div><!-- /.navbar-wrapper -->
-
-    <div class="container marketing">
-      <div class="row">
-        <div class="span10 offset1">
-        {% block panel %}{% endblock %}
+                    <p class="lead">BAR · RESTAURANT · TERRASSA</p>
+                </a>
+                <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+                <div class="nav-collapse collapse">
+                    <ul class="nav pull-right">
+                        {% include 'menu.html.twig' %}
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+            <!-- /.navbar-inner -->
         </div>
-      </div>
-      <!-- /END THE FEATURETTES -->
-      <!-- FOOTER -->
-      <footer style="margin-top: 30px;">
-        <p class="pull-right"><a href="#">Volver arriba</a></p>
-        <p>&copy; 2013 Kasparo S.L.</p>
-      </footer>
+        <!-- /.navbar -->
 
-    </div><!-- /.container -->
-    {% block modal %}
-    {% endblock %}
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/public/js/jquery.js"></script>
-    <script src="/public/bootstrap/bootstrap.min.js"></script>
-    {% block extraJavascript %}{% endblock %}
-  </body>
+    </div>
+    <!-- /.container -->
+</div>
+<!-- /.navbar-wrapper -->
+
+<div class="container marketing">
+    {% block slider %}{% endblock %}
+    <div class="row">
+        <div class="span10 offset1">
+            {% block panel %}{% endblock %}
+        </div>
+    </div>
+    <!-- /END THE FEATURETTES -->
+    <!-- FOOTER -->
+    <footer style="margin-top: 30px;">
+        <p class="pull-right"><a href="#">{% trans %}back_to_top{% endtrans %}</a></p>
+
+        <p>&copy; 2013 Kasparo S.L.</p>
+    </footer>
+
+</div>
+<!-- /.container -->
+{% block modal %}
+{% endblock %}
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/public/js/jquery.js"></script>
+<script src="/public/bootstrap/bootstrap.min.js"></script>
+{% block extraJavascript %}{% endblock %}
+</body>
 </html>

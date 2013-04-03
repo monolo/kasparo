@@ -36,7 +36,7 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
         'host' => $dbhost
     ),
 ));
-$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+/*$app->register(new Silex\Provider\SecurityServiceProvider(), array(
     'security.firewalls' => array(
 	    'admin' => array(
 	        'pattern' => '^/admin',
@@ -46,7 +46,7 @@ $app->register(new Silex\Provider\SecurityServiceProvider(), array(
 	        ),
 	    ),
 	),
-));
+));*/
 
 //controllers
 $app->get('/admin', function() use($app) {
@@ -172,7 +172,8 @@ $app->get("/{_locale}/press", function() use($app){
     ->bind("press");
 
 $app->get("/{_locale}/home", function() use($app){
-    return $app['twig']->render('index.html.twig');
+    $entities = $app['db']->fetchAll('SELECT * FROM images WHERE slider2 = 1');
+    return $app['twig']->render('index.html.twig', array("entities" => $entities));
 })
 ->bind("home");
 
