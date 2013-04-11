@@ -19,21 +19,31 @@
  *
  */
 
-.blueberry { margin: 0 auto; }
+.blueberry { margin: 0 auto; width: 90%; display: block; margin-left: 5%; }
 .blueberry .slides {
 	display: block;
 	position: relative;
 	overflow: hidden;
+	list-style-type: none;
 }
 .blueberry .slides li {
+	list-style-type: none;
 	position: absolute;
 	top: 0;
 	left: 0;
 	overflow: hidden;
 }
 .blueberry .slides li img {
+	margin-left: 10%;
 	display: block;
-	width: 100%;
+	width: 80%;
+	max-width: none;
+}
+.blueberry .slides li div {
+	margin-left: 10%;
+	display: block;
+	width: 80%;
+	text-align:center;
 	max-width: none;
 }
 .blueberry .slides li.active { display: block; position: relative; }

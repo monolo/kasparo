@@ -1,5 +1,5 @@
 {% extends 'layout.html.twig' %}
-{% set active = "home" %}
+{% set active = "gallery" %}
 {% block extraJavascript %}
     <script src="/public/js/jquery.blueberry.js"></script>
     <script>
@@ -19,12 +19,29 @@
         }
     </style>
 {% endblock %}
-{% block slider %}
+
+{% block panel %}
+<div class="row selector">
+<div class="span5" style="text-align:center">
+    <a href="{{ path('gallery') }}">Platos Destacados</a>
+</div>
+<div class="span5" style="text-align:center">
+    <a href="{{ path('galleryoutdoor') }}"  class="active">Exterior</a>
+</div>
+</div>
+<hr>
     <div class="blueberry">
         <ul class="slides">
             {% for entity in entities %}
-                <li><img src="{{ entity.path }}" /></li>
+                <li>
+                    <img src="{{ entity.path }}" />
+                    <div>
+                        <h3>{{ entity.name }}</h3>
+                    </div>
+                </li>
             {% endfor %}
         </ul>
     </div>
+
+<div style="clear:both"></div>
 {% endblock %}

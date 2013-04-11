@@ -171,11 +171,11 @@ $app->get("/{_locale}/press", function() use($app){
 })
     ->bind("press");
 
-$app->get("/{_locale}/home", function() use($app){
+$app->get("/{_locale}/gallery-outdoor", function() use($app){
     $entities = $app['db']->fetchAll('SELECT * FROM images WHERE slider2 = 1');
-    return $app['twig']->render('index.html.twig', array("entities" => $entities));
+    return $app['twig']->render('gallery-outdoor.html.twig', array("entities" => $entities));
 })
-->bind("home");
+->bind("galleryoutdoor");
 
 $app->get("/{_locale}/gallery", function() use($app){
     $entities = $app['db']->fetchAll('SELECT * FROM images WHERE slider1 = 1');

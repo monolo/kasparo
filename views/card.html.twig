@@ -1,6 +1,7 @@
 {% extends 'layout.html.twig' %}
 {% set active = "card" %}
 {% block panel %}
+<div class="card">
 <div class="row">
 	<h2 class="featurette-heading">{% trans %}tapas{% endtrans %}</h2>
     <hr class="soften">
@@ -37,13 +38,18 @@
 	<h2 class="featurette-heading">{% trans %}bread_rolls{% endtrans %}</h2>
     <hr class="soften">
 	<div class="span5">
-		{% for i in range(31, 37) %}
+		{% for i in range(31, 40) %}
 			{% set aux = "card_"~i%}
 			<p>{{ aux|trans}}</p>
 		{% endfor %}
 	</div>
 	<div class="span5">
-		{% for i in range(38, 44) %}
+		{% for i in range(41, 44) %}
+			{% set aux = "card_"~i%}
+			<p>{{ aux|trans}}</p>
+		{% endfor %}
+		<br><b style="font-size:16px;">{% trans %}hot_bread_rolls{% endtrans %}:</b><br><br>
+		{% for i in range(73, 74) %}
 			{% set aux = "card_"~i%}
 			<p>{{ aux|trans}}</p>
 		{% endfor %}
@@ -85,16 +91,17 @@
 	<h2 class="featurette-heading">{% trans %}desserts{% endtrans %}</h2>
     <hr class="soften">
 	<div class="span5">
-		{% for i in range(57, 63) %}
+		{% for i in range(57, 64) %}
 			{% set aux = "card_"~i%}
 			<p>{{ aux|trans}}</p>
 		{% endfor %}
 	</div>
 	<div class="span5">
-		{% for i in range(64, 69) %}
+		{% for i in range(65, 72) %}
 			{% set aux = "card_"~i%}
 			<p>{{ aux|trans}}</p>
 		{% endfor %}
 	</div>
+</div>
 </div>
 {% endblock %}

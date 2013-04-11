@@ -1,5 +1,4 @@
-<li{% if active == "home" %} class="active"{% endif %}><a href="{{ path('home') }}">{% trans %}Homepage{% endtrans %}</a></li>
+<li{% if active == "about" %} class="active"{% endif %}><a href="{{path('about')}}">{% trans %}About{% endtrans %}</a></li>
 <li{% if active == "card" %} class="active"{% endif %}><a href="{{path('card')}}">{% trans %}Menu_card{% endtrans %}</a></li>
 <li{% if active == "gallery" %} class="active"{% endif %}><a href="{{ path('gallery') }}">{% trans %}Gallery{% endtrans %}</a></li>
-<li{% if active == "about" %} class="active"{% endif %}><a href="{{path('about')}}">{% trans %}About{% endtrans %}</a></li>
 <li{% if active == "press" %} class="active"{% endif %}><a href="{{path('press')}}">{% trans %}Map_and_press{% endtrans %}</a></li>
