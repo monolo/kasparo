@@ -1,47 +1,65 @@
 {% extends 'layout.html.twig' %}
 {% set active = "gallery" %}
-{% block extraJavascript %}
-    <script src="/public/js/jquery.blueberry.js"></script>
-    <script>
-        $(window).load(function () {
-            $('.blueberry').blueberry();
-        });
-    </script>
-{% endblock %}
 {% block extra %}
-    <link rel="stylesheet" href="/public/css/blueberry.css">
+    <link rel="stylesheet" href="/public/css/normalize.css">
+    <link rel="stylesheet" href="/public/css/gallery.css">
+    <link rel="stylesheet" href="/public/css/gallery.theme.css">
     <style>
-        ul.slides{
-            margin: 0px;
-        }
-        ul.pager li a{
-            border: none;
-        }
+    .gallery .item{
+        background: none;
+        height: auto;
+    }
+    .prevBtn, .nextBtn{ 
+        display:block;
+        width:45px;
+        height:45px;
+        position:absolute; /* Posiciono de forma absoluta a los botones, absoluta con respecto a su elemento padre, osea el slider-wrapper */
+        top:50%; /* Mitad vertical del slider */
+        z-index:1000;
+    }
+    .prevBtn img, .nextBtn img{
+        height: 45px;
+        width: 45px;
+    }
+    .prevBtn{
+        left: 0px;
+    }
+    .nextBtn{
+        right: 0px;
+    }
+    .prevBtn  img{
+        -webkit-transform: rotate(180deg);  
+        -moz-transform: rotate(180deg);  
+        -ms-transform: rotate(180deg);  
+        -o-transform: rotate(180deg);  
+        transform: rotate(180deg);
+    }
     </style>
 {% endblock %}
-
+{% block extraJavascript %}
+    <script type="text/javascript" src="/public/js/prefixfree.min.js"></script>
+{% endblock %}
 {% block panel %}
 <div class="row selector">
-<div class="span5" style="text-align:center">
-    <a href="{{ path('gallery') }}">Platos Destacados</a>
-</div>
-<div class="span5" style="text-align:center">
-    <a href="{{ path('galleryoutdoor') }}"  class="active">Exterior</a>
-</div>
+    <div class="span5" style="text-align:center">
+        <a href="{{ path('gallery') }}">Platos Destacados</a>
+    </div>
+    <div class="span5" style="text-align:center">
+        <a href="{{ path('galleryoutdoor') }}" class="active">Exterior</a>
+    </div>
 </div>
 <hr>
-    <div class="blueberry">
-        <ul class="slides">
-            {% for entity in entities %}
-                <li>
-                    <img src="{{ entity.path }}" />
-                    <div>
-                        <h3>{{ entity.name }}</h3>
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+<div class="gallery items-{{entities|length}}">
+  {% for entity in entities %}
+  <div id="item-{{ loop.index }}" class="control-operator"></div>
+  {% endfor %}
 
-<div style="clear:both"></div>
+  {% for entity in entities %}
+  <figure class="item">
+      <img src="{{ entity.path }}" style="width: 100%" />
+      {% if loop.first != true %}<a class="prevBtn" href="#item-{{ loop.index - 1 }}"><img src="/public/images/right.png" /></a>{% endif %}
+      {% if loop.last != true %}<a class="nextBtn" href="#item-{{ loop.index + 1 }}"><img src="/public/images/right.png" /></a>{% endif %}
+  </figure>
+  {% endfor %}
+</div>
 {% endblock %}
