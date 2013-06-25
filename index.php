@@ -54,11 +54,6 @@ $app->get('/admin', function() use($app) {
 })
 ->bind('admin');
 
-$app->get('/admin/images', function() use($app) {
-    $entities = $app['db']->fetchAll('SELECT * FROM images');
-    return $app['twig']->render('adminImages.html.twig', array("entities" => $entities));
-})
-->bind('admin_images');
 
 $app->get('/admin/images/show/{id}', function($id) use($app) {
     $entity = $app['db']->fetchAssoc('SELECT * FROM images WHERE id = '.$id);
@@ -79,12 +74,12 @@ $app->match('/admin/images/new', function(Request $request) use($app) {
                 $date = new \DateTime();
                 $name2 = md5($date->format("Y-m-d H:i:s")).".".$extension;
                 move_uploaded_file($_FILES["file"]["tmp_name"], "public/images/" . $name2);
-                $sql = "Insert Into images (id, name, path";
+                $sql = "Insert Into images (id, name, orden, path";
                 $sql .=($request->get("slider1")) ? ", slider1" : "";
                 $sql .=($request->get("slider2")) ? ", slider2" : "";
                 $sql .=($request->get("slider3")) ? ", slider3" : "";
                 $sql .=($request->get("description") != "") ? ", description" : "";
-                $sql .=") Values (NULL, '".$name."', '/public/images/".$name2."'";
+                $sql .=") Values (NULL, '".$name."','".$request->get('orden')."', '/public/images/".$name2."'";
                 $sql .=($request->get("slider1")) ? ", '1'" : "";
                 $sql .=($request->get("slider2")) ? ", '1'" : "";
                 $sql .=($request->get("slider3")) ? ", '1'" : "";
@@ -95,11 +90,19 @@ $app->match('/admin/images/new', function(Request $request) use($app) {
             }
         }
     }
-    return $app['twig']->render('adminImagesNew.html.twig');
+    return $app['twig']->render('adminImagesNew.html.twig',array('type'=>'new'));
 })
 ->bind('admin_images_new');
 
+$app->get('/admin/images/{type}', function($type) use($app) {
+    $entities = $app['db']->fetchAll('SELECT * FROM images WHERE images.'.$type.'="1" ORDER BY orden ASC');
+    return $app['twig']->render('adminImages.html.twig', array("entities" => $entities,'type'=>$type));
+})
+->bind('admin_images')->value('type', 'slider1');
+
+
 $app->match('/admin/images/edit/{id}', function($id, Request $request) use($app) {
+
     $entity = $app['db']->fetchAssoc('SELECT * FROM images WHERE id = '.$id);
     if($request->getMethod() == "POST"){
         $description = ($request->get("description") != "") ? "'".$request->get("description")."'" : "NULL";
@@ -119,6 +122,7 @@ $app->match('/admin/images/edit/{id}', function($id, Request $request) use($app)
                     move_uploaded_file($_FILES["file"]["tmp_name"], "public/images/" . $name2);
                     $sql = "UPDATE images SET name='".$name."', path='/public/images/".$name2."', slider1=";
                     $sql .=($request->get("slider1")) ? "true" : "false";
+                    $sql .=", orden='".$request->get('orden')."'";
                     $sql .=", slider2=";
                     $sql .=($request->get("slider2")) ? "true" : "false";
                     $sql .=", slider3=";
@@ -135,6 +139,7 @@ $app->match('/admin/images/edit/{id}', function($id, Request $request) use($app)
             if($name = $request->get("name")){
                 $sql = "UPDATE images SET name='".$name."', slider1=";
                 $sql .=($request->get("slider1")) ? "true" : "false";
+                $sql .=", orden='".$request->get('orden')."'";
                 $sql .=", slider2=";
                 $sql .=($request->get("slider2")) ? "true" : "false";
                 $sql .=", slider3=";
@@ -152,7 +157,7 @@ $app->match('/admin/images/edit/{id}', function($id, Request $request) use($app)
 ->bind('admin_images_edit');
 
 $app->get('/admin/images/delete/{id}', function($id) use($app){
-    $entity = $app['db']->fetchAssoc('SELECT * FROM images WHERE id = '.$id);
+    $entity = $app['db']->fetchAssoc('SELECT * FROM images WHERE id = '.$id.' ORDER BY images.orden ASC');
     $unlink = end(explode("/", $entity["path"]));
     unlink("public/images/".$unlink);
     $sql = "DELETE FROM images WHERE id=".$id;
@@ -166,19 +171,19 @@ $app->get("/", function() use($app){
 ->bind("landing");
 
 $app->get("/{_locale}/press", function() use($app){
-    $entities = $app['db']->fetchAll('SELECT * FROM images WHERE slider3 = 1');
+    $entities = $app['db']->fetchAll('SELECT * FROM images WHERE slider3 = 1 ORDER BY orden ASC');
     return $app['twig']->render('press.html.twig',array('entities'=>$entities));
 })
     ->bind("press");
 
 $app->get("/{_locale}/gallery-outdoor", function() use($app){
-    $entities = $app['db']->fetchAll('SELECT * FROM images WHERE slider2 = 1');
+    $entities = $app['db']->fetchAll('SELECT * FROM images WHERE slider2 = 1 ORDER BY orden ASC');
     return $app['twig']->render('gallery-outdoor.html.twig', array("entities" => $entities));
 })
 ->bind("galleryoutdoor");
 
 $app->get("/{_locale}/gallery", function() use($app){
-    $entities = $app['db']->fetchAll('SELECT * FROM images WHERE slider1 = 1');
+    $entities = $app['db']->fetchAll('SELECT * FROM images WHERE slider1 = 1 ORDER BY orden ASC');
     return $app['twig']->render('gallery.html.twig', array("entities" => $entities));
 })
 ->bind("gallery");

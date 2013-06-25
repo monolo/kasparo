@@ -13,16 +13,62 @@
 
     </div>
 
+    <h2>{% trans %}timetable{% endtrans %}</h2>
+    <hr class="soften">
+    <div class="row" style="margin-left: 30px">
+    <div class="span9" style="text-align:left">
+        <div class="span3" style="text-align: left">
+        <b>Horario de Verano</b><br>
+        <hr class="slim">
+        De Martes a Sábado: 
+        <p style="text-align:right">
+        <i style="font-weight:bold; font-size:14px">9:00 - 00:00<i>
+        </p>
+        Lunes y Domingo: 
+        <p style="text-align:right">
+        <i style="font-weight:bold; font-size:14px">cerrado<i>
+        </p>
+
+        </div>
+        <div class="span3 offset2">
+        <b>Horario de Invierno</b><br>
+        <hr class="slim">
+        De Martes a Sábado: 
+        <p style="text-align:right">
+        <i style="font-weight:bold; font-size:14px">9:00 - 22:30<i>
+        </p>
+        Lunes y Domingo: 
+        <p style="text-align:right">
+        <i style="font-weight:bold; font-size:14px">cerrado<i>
+        </p>
+        </div>
+    </div>
+    </div>
+    <br>
+
     <h2>{% trans %}press{% endtrans %}</h2>
     <hr class="soften">
-    <ul id="pg">
-        {% for entity in entities %}
+    <div class="row" style="margin-left: 0px">
+    {% for entity in entities %}
+    <a href="{{ entity.path}}" target="_blank">
+    <div class="span4" style="text-align:left">
+        <i class="icon-zoom-in" style="font-size: 30px; float:left; margin-top: 10px"></i>
+        <div class="span3">
+        <h3>{{ entity.name }}</h3>
+        <p>{{ entity.description }}</p>
+        </div>
+    </div>
+    </a>
+    {% endfor %}
+    </div>
+    {#<ul id="pg">
+        
             <li>
                 <img src="{{ entity.path }}" alt="{{entity.name}}">
                 <p>{{entity.name}}</p>
             </li>
-        {% endfor %}
-    </ul>
+
+    </ul>#}
 {% endblock %}
 {% block extraJavascript %}
     <script type="text/javascript" src="/public/js/jphotogrid.min.js"></script>

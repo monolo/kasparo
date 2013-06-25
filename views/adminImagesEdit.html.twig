@@ -14,10 +14,12 @@
 				<fieldset>
 					<legend>Editar Imagen</legend>
 					<label>Nombre:</label>
-					<input type="text" value="{{entity.name}}" required="required" name="name"></br>
+					<input type="text" class="input" value="{{entity.name}}" required="required" name="name"></br>
 					<input type="file" name="file">
 					<label>Descripción:</label>
 					<input type="text" value="{{entity.description}}" name="description">
+					<label>Orden:</label>
+					<input type="text" value="{{entity.orden}}" name="orden">
 					<span class="help-block">Selecciona si quieres que salga en algún slider:</span>
 					<label class="checkbox">
 						<input type="checkbox" name="slider1"{% if entity.slider1 == 1 %} checked{% endif %}> Galería (Platos)

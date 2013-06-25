@@ -4,27 +4,34 @@
 	<div class="row">
 		<div class="span3 bs-docs-sidebar">
 			<ul class="nav nav-list bs-docs-sidenav affix-top">
-				<li class="active"><a href="{{path('admin_images')}}"><i class="icon-chevron-right"></i>Todos</a></li>
-				<li class=""><a href="{{path('admin_images_new')}}"><i class="icon-chevron-right"></i>Crear nuevo</a></li>
+				<li{% if type=='slider1'%} class="active"{% endif %}><a href="{{path('admin_images')}}"><i class="icon-chevron-right"></i>Galería (Interior)</a></li>
+				<li{% if type=='slider2'%} class="active"{% endif %}><a href="{{path('admin_images',{'type':'slider2'})}}"><i class="icon-chevron-right"></i>Galería (Exterior)</a></li>
+				<li{% if type=='slider3'%} class="active"{% endif %}><a href="{{path('admin_images',{'type':'slider3'})}}"><i class="icon-chevron-right"></i>Prensa</a></li>
+				<li {% if type=='new'%} class="active"{% endif %}><a href="{{path('admin_images_new')}}"><i class="icon-chevron-right"></i>Crear nuevo</a></li>
         	</ul>
 		</div>
 		<div class="span9">
 			<table class="table table-bordered">
 				<tr>
-					<th>Nombre</th>
+					<th>Orden</th>
 					<th>Imagen</th>
 					<th>Acciones</th>
 				</tr>
 				{% for entity in entities %}
 				<tr>
-					<td>{{entity.name}}</td>
-					<td><img src="{{entity.path}}"></img></td>
+					<td><h1>{{entity.orden}}</h1></td>
+					<td><img src="{{entity.path}}" width="180px"></td>
 					<td>
 						<div class="btn-group" style="margin: 9px 0 5px;">
           					<a class="btn btn-primary" href="{{path('admin_images_show', {'id':entity.id})}}"><i class="icon-eye-open"></i>Ver</a>
           					<a class="btn btn-success" href="{{path('admin_images_edit', {'id': entity.id})}}"><i class="icon-pencil"></i>Editar</a>
           					<a class="btn btn-danger" data-toggle="modal" href="#modal_delete_force" data-confirm="{{path('admin_images_delete', {'id': entity.id})}}"><i class="icon-trash"></i>Borrar</a>
-        				</div>
+        				</div><br>
+        				<b>Titulo:</b><br>
+        				{{entity.name}}
+        				<br>
+        				<b>Descripción:</b><br>
+        				{{entity.description}}
     				</td>
 				</tr>
 				{% endfor %}

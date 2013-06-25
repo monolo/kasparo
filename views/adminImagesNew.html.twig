@@ -5,7 +5,9 @@
 	<div class="row">
 		<div class="span3 bs-docs-sidebar">
 			<ul class="nav nav-list bs-docs-sidenav affix-top">
-				<li><a href="{{path('admin_images')}}"><i class="icon-chevron-right"></i>Todos</a></li>
+				<li{% if type=='slider1'%} class="active"{% endif %}><a href="{{path('admin_images')}}"><i class="icon-chevron-right"></i>Galería (Interior)</a></li>
+				<li{% if type=='slider2'%} class="active"{% endif %}><a href="{{path('admin_images',{'type':'slider2'})}}"><i class="icon-chevron-right"></i>Galería (Exterior)</a></li>
+				<li{% if type=='slider3'%} class="active"{% endif %}><a href="{{path('admin_images',{'type':'slider3'})}}"><i class="icon-chevron-right"></i>Prensa</a></li>
 				<li class="active"><a href="{{path('admin_images_new')}}"><i class="icon-chevron-right"></i>Crear nuevo</a></li>
         	</ul>
 		</div>
@@ -18,6 +20,8 @@
 					<input type="file" required="required" name="file">
 					<label>Descripción:</label>
 					<input type="text" name="description">
+					<label>Orden:</label>
+					<input type="text" value="1" name="orden">
 					<span class="help-block">Selecciona si quieres que salga en algún slider:</span>
 					<label class="checkbox">
 						<input type="checkbox" name="slider1"> Galería (Platos)

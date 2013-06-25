@@ -7,3 +7,7 @@ SetEnv PHP_VER 5_3
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+#  AuthType Basic
+#  AuthName "Autentificación Necesaria"
+#  AuthUserFile .htpasswd
+#  Require valid-user
